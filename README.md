@@ -1,1 +1,0 @@
-# fineasy-app-expo
