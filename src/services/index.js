@@ -10,7 +10,6 @@ const registerUser = async (name, email, password, squad) => {
   };
   try {
     const response = await api.post('/signup/', data);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

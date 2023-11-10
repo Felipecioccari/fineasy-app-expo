@@ -1,16 +1,18 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://192.168.0.9:3000';
+const baseURL = 'http://192.168.0.6:3000';
 
 const instance = axios.create({
   baseURL,
 });
 
 instance.interceptors.request.use(
-  config => {
-    const token =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTc0YmE5MGEyNDE1ZjAxYjQwNzdkZSIsIm5hbWUiOiJKb2huIGV3ZSIsImVtYWlsIjoiZmUiLCJzcXVhZCI6IkVuZ2luZWVyaW5nIiwiaWF0IjoxNjk5NTU1MDQyfQ.iiY-LFIst4_5YWWo79Yebu_myJDBRWg8vGXEvnKBK1I';
-    config.headers.Authorization = token;
+  async config => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   error => {
@@ -20,7 +22,6 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    console.log('Response:', response);
     return response;
   },
   error => {

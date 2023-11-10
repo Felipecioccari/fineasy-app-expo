@@ -44,14 +44,12 @@ function AuthProvider({children}) {
   async function handleLogin(email, password) {
     try {
       const response = await api.loginUser(email, password);
-      console.log(response.data)
       const {token} = response.data;
       await AsyncStorage.setItem('token', token);
       const parts = token.split('.');
       const payload = parts[1];
       const decodedToken = JSON.parse(Buffer.from(payload, 'base64').toString());
       setUser(decodedToken);
-      console.log("DECODED TOKEN LOGIN TYPE OF", typeof(decodedToken))
       navigation.navigate('Home');
     } catch (error) {
       if (error.response) {
@@ -89,7 +87,6 @@ function AuthProvider({children}) {
         throw new Error('Passwords do not match');
       }
       const newUser = await api.registerUser(name, email, password, squad);
-      console.log(newUser.token);
       if (!newUser || !newUser.token) {
         throw new Error('Failed to register user');
       }
@@ -97,9 +94,7 @@ function AuthProvider({children}) {
       const parts = token.split('.');
       const payload = parts[1];
       await AsyncStorage.setItem('token', token);
-      console.log("TIPO DO TOKEN" ,typeof(token));
       const decodedToken = JSON.parse(Buffer.from(payload, 'base64').toString());
-      console.log("DECODED TOKEN", decodedToken);
       setUser(decodedToken);
       navigation.navigate('Home');
     } catch (error) {

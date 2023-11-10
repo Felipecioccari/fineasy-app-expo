@@ -17,14 +17,10 @@ export default function Home() {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log("USER---------------------",user)
   const usarName=user.name
-  console.log("USER---------------------",usarName)
   const handleCheckIn = async () => {
-    console.log('check-in');
     try {
       const response = await api.checkIn(user.id);
-      console.log(response.data);
       setIsCheckedIn(true);
     } catch (error) {
       console.log('error');
@@ -32,10 +28,8 @@ export default function Home() {
   };
 
   const handleCheckOut = async () => {
-    console.log('check-out');
     try {
       const response = await api.checkOut(user.id);
-      console.log(response.data);
       setIsCheckedIn(false);
     } catch (error) {
       console.log('error');
