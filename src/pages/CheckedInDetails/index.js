@@ -21,12 +21,12 @@ const CheckinDetails = () => {
 
   return (
     <View style={styles.container}>
-      {checkedInUsers.map(user => (
-        <View key={user.id} style={styles.userContainer}>
-          <Text style={styles.userName}>{user.name}</Text>
-          <Text style={styles.userEmail}>{user.email}</Text>
-        </View>
-      ))}
+{checkedInUsers.map((user, index) => (
+  <View key={user.id || index} style={styles.userContainer}>
+    <Text style={styles.userName}>{user.name}</Text>
+    <Text style={styles.userEmail}>{user.email}</Text>
+  </View>
+))}
     </View>
   );
 };
