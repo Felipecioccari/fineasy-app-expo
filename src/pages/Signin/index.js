@@ -81,7 +81,7 @@ export default function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#38a69d',
+    backgroundColor: '#47A054',
   },
   containerHeader: {
     marginTop: '14%',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   button: {
-    backgroundColor: '338a69d',
+    backgroundColor: '#A855A0',
     width: '100%',
     borderRadius: 4,
     paddingVertical: 8,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   buttonLogin: {
     position: 'absolute',
-    backgroundColor: '#51C1C5',
+    backgroundColor: '#A855A0',
     borderRadius: 50,
     paddingVertical: 8,
     width: '60%',
@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   registerText: {
-    color: 'black',
+    color: '#A855A0',
   },
 });

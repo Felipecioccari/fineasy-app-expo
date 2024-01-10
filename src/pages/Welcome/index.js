@@ -10,7 +10,7 @@ export default function Welcome() {
       <View style={styles.containerLogo}>
         <Image
           source={require('../../assets/fineasylogo.png')}
-          style={{width: '100%'}}
+          style={{maxWidth:'100%'}}
           resizeMode="contain"
         />
       </View>
@@ -36,9 +36,15 @@ const styles = StyleSheet.create({
   },
   containerLogo: {
     flex: 2,
-    backgroundColor: '#A855A0',
+    backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    width: '95%',
+    maxWidth: '95%',
+    maxHeight: '25%',
+    marginTop: '30%',
+    marginBottom: '65%',
   },
   containerForm: {
     flex: 1,
@@ -47,20 +53,21 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     paddingStart: '5%',
     paddingEnd: '5%',
+    justifyContent: 'top',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 28,
     marginBottom: 12,
-    color: '#51C1C5',
+    color: '#41454A',
   },
   text: {
-    color: 'black',
+    color: '#41454A',
   },
   button: {
     position: 'absolute',
-    backgroundColor: '#51C1C5',
+    backgroundColor: '#A855A0',
     borderRadius: 50,
     paddingVertical: 8,
     width: '60%',

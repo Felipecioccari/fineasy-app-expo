@@ -36,7 +36,7 @@ export default function () {
           animation="fadeInLeft"
           delay={500}
           style={styles.containerHeader}>
-          <Text style={styles.message}>Bem-Vindo</Text>
+          <Text style={styles.message}>Bem vindo!</Text>
         </Animatable.View>
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <KeyboardAvoidingView>
@@ -81,7 +81,7 @@ export default function () {
           </KeyboardAvoidingView>
 
           <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Acessar</Text>
+            <Text style={styles.buttonText}>Criar</Text>
           </TouchableOpacity>
         </Animatable.View>
       </Animatable.ScrollView>
@@ -92,7 +92,7 @@ export default function () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#38a69d',
+    backgroundColor: '#47A054',
   },
   containerHeader: {
     marginTop: '14%',
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingStart: '5%',
     paddingEnd: '5%',
+    minHeight: '100%',
   },
   title: {
     fontSize: 20,
@@ -130,15 +131,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonLogin: {
-    backgroundColor: '#51C1C5',
+    backgroundColor: '#A4B548',
     borderRadius: 50,
     paddingVertical: 16,
     width: '60%',
     alignSelf: 'center',
-    bottom: '15%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
+    margin: '15%',
   },
   registerText: {
     color: 'black',
