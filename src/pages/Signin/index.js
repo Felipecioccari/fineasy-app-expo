@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -21,7 +22,16 @@ export default function SignIn() {
   const navigation = useNavigation();
 
   function handleSubmit() {
-    handleLogin(email, password);
+    if (validateEmail(email)) {
+      handleLogin(email, password);
+    } else {
+      Alert.alert('Por favor digite um email valido');
+    }
+  }
+
+  function validateEmail(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}(\.br)?$/;
+    return regex.test(email);
   }
 
   return (

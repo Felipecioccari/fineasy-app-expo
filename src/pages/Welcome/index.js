@@ -1,8 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-
-import * as Animatable from 'react-native-animatable';
-
 import {useNavigation} from '@react-navigation/native';
 
 export default function Welcome() {
@@ -11,18 +8,14 @@ export default function Welcome() {
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
-        <Animatable.Image
-          animation="flipInY"
+        <Image
           source={require('../../assets/fineasylogo.png')}
           style={{width: '100%'}}
           resizeMode="contain"
         />
       </View>
 
-      <Animatable.View
-        delay={600}
-        animation="fadeInUp"
-        style={styles.containerForm}>
+      <View style={styles.containerForm}>
         <Text style={styles.title}>Fique em dia com o seu time Fineasy</Text>
         <Text style={styles.text}>Faça o login para começar</Text>
 
@@ -31,7 +24,7 @@ export default function Welcome() {
           onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
-      </Animatable.View>
+      </View>
     </View>
   );
 }
@@ -50,8 +43,8 @@ const styles = StyleSheet.create({
   containerForm: {
     flex: 1,
     backgroundColor: '#FFF',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     paddingStart: '5%',
     paddingEnd: '5%',
   },
