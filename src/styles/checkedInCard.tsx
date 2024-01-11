@@ -5,8 +5,6 @@ const checkedInCardStyles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

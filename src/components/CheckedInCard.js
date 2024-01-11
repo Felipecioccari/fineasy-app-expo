@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import api from '../services/index';
 import styles from '../styles/checkedInCard';
 
+
 const CheckedInCard = () => {
   const navigation = useNavigation();
   const [checkedInCount, setCheckedInCount] = useState(0);

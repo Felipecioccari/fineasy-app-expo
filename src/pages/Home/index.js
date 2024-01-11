@@ -97,8 +97,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#A4B548',
-    opacity: 0.9,
+    backgroundColor: '#47A054',
   },
   header: {
     flexDirection: 'row',
@@ -106,8 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     paddingTop: 40,
-    backgroundColor: '#A4B548',
-    opacity: 0.9,
+    backgroundColor: '#FFF',
   },
   button: {
     backgroundColor: '#51C1C5',
@@ -120,8 +118,8 @@ const styles = StyleSheet.create({
   },
   profile: {
     alignItems: 'center',
-    marginTop: -60,
-    marginBottom: 16,
+    bottom: -20,
+    zIndex: 1,
   },
   profilePicture: {
     alignItems: 'center',
@@ -138,7 +136,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    padding: 16,
+    paddingBottom: 90,
+    paddingVertical: 20,
   },
   profileInfo: {
     alignItems: 'center',
