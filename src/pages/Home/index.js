@@ -11,6 +11,7 @@ import {
 import CheckedInCard from '../../components/CheckedInCard';
 import api from '../../services/index';
 import {AuthContext} from '../../context/auth';
+import Profile from '../../components/Profile';
 
 export default function Home() {
   const {user, handleLogout} = useContext(AuthContext);
@@ -49,10 +50,7 @@ export default function Home() {
         </View>
         <View style={styles.profile}>
           <TouchableOpacity style={styles.profilePicture}>
-            <Image
-              source={require('../../assets/profile.png')}
-              style={styles.profileImage}
-            />
+            <Profile />
           </TouchableOpacity>
         </View>
         <View style={styles.containerMenu}>
@@ -125,13 +123,6 @@ const styles = StyleSheet.create({
   },
   profilePicture: {
     alignItems: 'center',
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 4,
-    borderColor: '#FFF',
   },
   containerMenu: {
     flex: 1,
