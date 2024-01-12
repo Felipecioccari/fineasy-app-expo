@@ -40,11 +40,11 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Settings</Text>
+          <TouchableOpacity style={styles.headerButtons}>
+            <Image style={styles.headerButtonContent} source={require('../../assets/iconNavBar.png')} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleLogout}>
-            <Text style={styles.buttonText}>Logout</Text>
+          <TouchableOpacity style={styles.headerButtons} onPress={handleLogout}>
+            <Image style={styles.headerButtonContent} source={require('../../assets/iconLogOut.png')} />
           </TouchableOpacity>
         </View>
         <View style={styles.profile}>
@@ -62,8 +62,8 @@ export default function Home() {
           </View>
           <View style={styles.menuItems}>
             <TouchableOpacity
-              style={[styles.checkInButton, styles.centerButton]}>
-              <View style={styles.checkInButton}>
+              style={[styles.checkedConteiner]}>
+              <View style={[styles.checkedContent]}>
                 <CheckedInCard />
               </View>
             </TouchableOpacity>
@@ -75,7 +75,7 @@ export default function Home() {
               ]}
               onPress={handleCheckIn}
               disabled={isCheckedIn}>
-              <Text style={styles.checkInButtonText}>Check-in</Text>
+              <Text style={styles.checkInButtonText}>CHECK</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -85,7 +85,7 @@ export default function Home() {
               ]}
               onPress={handleCheckOut}
               disabled={!isCheckedIn}>
-              <Text style={styles.checkOutButtonText}>Check-out</Text>
+              <Text style={styles.checkOutButtonText}>CHECK-OUT</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -107,14 +107,16 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     backgroundColor: '#FFF',
   },
-  button: {
-    backgroundColor: '#51C1C5',
-    padding: 8,
+  headerButtons: {
     borderRadius: 10,
+    height: 40,
+    width: 40,
   },
-  buttonText: {
+  headerButtonContent: {
     color: '#FFF',
     fontSize: 16,
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
   profile: {
     alignItems: 'center',
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingBottom: 90,
     paddingVertical: 20,
+    height: '100%',
   },
   profileInfo: {
     alignItems: 'center',
@@ -146,36 +149,56 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 16,
     marginBottom: 8,
-    color: '#000000',
+    color: '#41454A',
   },
   squad: {
     fontSize: 16,
     marginBottom: 16,
-    color: '#000000',
+    color: '#41454A',
   },
+
+  checkedConteiner: {
+    alignSelf: 'center',
+    marginBottom: '20%',
+    width: '100%',
+    padding: 0,
+  },
+
+  checkedContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   checkInButton: {
+    height: 52,
+    width: 218,
     backgroundColor: '#A4B548',
     paddingVertical: 16,
     paddingHorizontal: 32,
-    borderRadius: 10,
+    borderRadius: 50,
     marginBottom: 16,
+    alignItems: 'center',
   },
   checkInButtonText: {
     color: '#FFF',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   checkOutButton: {
-    backgroundColor: '#ed574a',
-    borderWidth: 1,
-    borderColor: '#333',
+    height: 52,
+    width: 218,
+    backgroundColor: '#41454A',
+    borderRadius: 50,
     paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 10,
+    alignItems: 'center',
+    color: '#FFF',
   },
   checkOutButtonText: {
-    color: '#333',
+    color: '#FFF',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   menuItems: {
     marginTop: 16,
@@ -184,7 +207,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   disabledButton: {
-    opacity: 0.5,
-    backgroundColor: '#ccc',
+    color: '#FFF',
+    backgroundColor: '#41454A',
   },
 });

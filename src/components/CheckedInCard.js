@@ -32,9 +32,9 @@ const CheckedInCard = () => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
-      <Text style={styles.title}>Usuários no escritório</Text>
+      <Text style={styles.title}>Usuários no escritório hoje</Text>
       <Text style={styles.count}>{checkedInCount}</Text>
-      <Text style={styles.subtitle}>Detalhes</Text>
+      <Text style={styles.subtitle}>Clique para ver mais</Text>
     </TouchableOpacity>
   );
 };

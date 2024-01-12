@@ -136,11 +136,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#A855A0',
     borderRadius: 50,
     paddingVertical: 8,
-    width: '60%',
     alignSelf: 'center',
     bottom: '15%',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 52,
+    width: 218,
   },
   registerText: {
     color: '#A855A0',
