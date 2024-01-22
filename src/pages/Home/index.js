@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     width: 40,
   },
   headerButtonContent: {
-    color: '#FFF',
     fontSize: 16,
     maxWidth: '100%',
     maxHeight: '100%',
@@ -180,7 +179,7 @@ const styles = StyleSheet.create({
   checkOutButton: {
     height: 52,
     width: 218,
-    backgroundColor: '#41454A',
+    backgroundColor: '#A4B548',
     borderRadius: 50,
     paddingVertical: 16,
     alignItems: 'center',
