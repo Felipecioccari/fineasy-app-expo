@@ -15,7 +15,7 @@ import Profile from '../../components/Profile';
 
 export default function Home() {
   const {user, handleLogout} = useContext(AuthContext);
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [isCheckedIn, setIsCheckedIn] = useState(user.checkedIn);
   const [isLoading, setIsLoading] = useState(true);
 
   const usarName=user.name
