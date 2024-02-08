@@ -3,9 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../context/auth';
@@ -13,6 +13,7 @@ import api from '../../services/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as Animatable from 'react-native';
+import InputText from '../../components/InputText';
 
 export default function () {
   const navigation = useNavigation();
@@ -24,8 +25,21 @@ export default function () {
   const [name, setName] = useState('');
 
   function handleSubmit() {
-    handleSignUp(name, email, password, confirmPassword, squad);
+  if (email && password){
+      if (validateEmail(email)) {
+        handleSignUp(name, email, password, confirmPassword, squad);
+      } else {
+        Alert.alert('Por favor digite um email valido');
+      }
+    }
+    else {
+      Alert.alert('Preencha todos os campos corretamente!');
+    }
   }
+  function validateEmail(email){
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}(\.br)?$/;
+    return regex.test(email);
+  };
 
   return (
     <View style={styles.container}>
@@ -41,14 +55,14 @@ export default function () {
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <KeyboardAvoidingView>
             <Text style={styles.title}>Nome</Text>
-            <TextInput
+            <InputText
               placeholder="Digite um name"
               style={styles.input}
               value={name}
               onChangeText={setName}
             />
             <Text style={styles.title}>Email</Text>
-            <TextInput
+            <InputText
               placeholder="Digite um email"
               style={styles.input}
               value={email}
@@ -56,7 +70,7 @@ export default function () {
               keyboardType="email-address"
             />
             <Text style={styles.title}>Senha</Text>
-            <TextInput
+            <InputText
               placeholder="Sua senha"
               style={styles.input}
               value={password}
@@ -64,7 +78,7 @@ export default function () {
               secureTextEntry
             />
             <Text style={styles.title}>Confirme sua senha</Text>
-            <TextInput
+            <InputText
               placeholder="Sua senha"
               style={styles.input}
               value={confirmPassword}
@@ -72,7 +86,7 @@ export default function () {
               secureTextEntry
             />
             <Text style={styles.title}>Squad</Text>
-            <TextInput
+            <InputText
               placeholder="Digite um Squad"
               style={styles.input}
               value={squad}
@@ -116,13 +130,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginTop: 28,
-    color: 'black',
-  },
-  input: {
-    borderBottomWidth: 1,
-    height: 40,
-    marginBottom: 12,
-    fontSize: 16,
     color: 'black',
   },
   buttonText: {

@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     width: 40,
   },
   headerButtonContent: {
-    fontSize: 16,
     maxWidth: '100%',
     maxHeight: '100%',
   },

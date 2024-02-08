@@ -13,25 +13,33 @@ import {AuthContext} from '../../context/auth';
 
 import * as Animatable from 'react-native';
 
+import InputText from '../../components/InputText';
+
 export default function SignIn() {
-  const [email, setEmail] = useState('');
+  
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   const {handleLogin} = useContext(AuthContext);
 
   const navigation = useNavigation();
 
-  function handleSubmit() {
-    if (validateEmail(email)) {
-      handleLogin(email, password);
-    } else {
-      Alert.alert('Por favor digite um email valido');
-    }
-  }
-
-  function validateEmail(email) {
+  function validateEmail(email){
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}(\.br)?$/;
     return regex.test(email);
+  };
+
+  function handleSubmit() {
+    if (email && password){
+      if (validateEmail(email)) {
+        handleLogin(email, password);
+      } else {
+        Alert.alert('Por favor digite um email valido');
+      }
+    }
+    else {
+      Alert.alert('Preencha todos os campos corretamente!');
+    }
   }
 
   return (
@@ -45,21 +53,20 @@ export default function SignIn() {
 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <Text style={styles.title}>Email</Text>
-        <TextInput
-          placeholder="Digite um email"
-          style={styles.input}
+        <InputText
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
+          placeholder="Seu email"
         />
 
         <Text style={styles.title}>Senha</Text>
-        <TextInput
+        <InputText
           placeholder="Sua senha"
           style={styles.input}
           value={password}
+          secureTextEntry={true}
           onChangeText={setPassword}
-          secureTextEntry
         />
 
         <TouchableOpacity
@@ -106,13 +113,7 @@ const styles = StyleSheet.create({
     marginTop: 28,
     color: 'black',
   },
-  input: {
-    borderBottomWidth: 1,
-    height: 40,
-    marginBottom: 12,
-    fontSize: 16,
-    color: 'black',
-  },
+  
   button: {
     backgroundColor: '#A855A0',
     width: '100%',
@@ -147,3 +148,8 @@ const styles = StyleSheet.create({
     color: '#A855A0',
   },
 });
+
+
+  
+
+  
