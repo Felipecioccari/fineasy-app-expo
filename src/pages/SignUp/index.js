@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import * as Animatable from 'react-native';
 import { AuthContext } from '../../context/auth';
 import InputText from '../../components/InputText';
+import Button from '../../components/Button';
  
 // Define validation schema
 const validationSchema = Yup.object().shape({
@@ -129,10 +130,12 @@ export default function () {
                     placeholder="Digite seu Squad"
                   />
                   {errors.squad && <Text>{errors.squad}</Text>}
- 
-                  <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Criar</Text>
-                  </TouchableOpacity>
+
+                  <Button
+                    title="Criar"
+                    type='positive'
+                    onPress={handleSubmit}
+                  />
                 </>
               )}
             </Formik>

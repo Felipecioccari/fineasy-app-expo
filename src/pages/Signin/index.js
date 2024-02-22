@@ -7,19 +7,18 @@ import * as Animatable from 'react-native';
 import { AuthContext } from '../../context/auth';
 import InputText from '../../components/InputText';
 import Button from '../../components/Button';
-
+ 
 // Define validation schema
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email invalido!').required('Obrigatório!'),
   password: Yup.string().required('Obrigatório!'),
 });
-
-
+ 
 export default function SignIn() {
   const { handleLogin } = useContext(AuthContext);
   const navigation = useNavigation();
   const passwordInput = useRef();
-
+ 
   return (
     <View style={styles.container}>
       <Animatable.View
@@ -28,7 +27,7 @@ export default function SignIn() {
         style={styles.containerHeader}>
         <Text style={styles.message}>Bem-Vindo</Text>
       </Animatable.View>
-
+ 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <Formik
           initialValues={{ email: '', password: '' }}
@@ -51,8 +50,7 @@ export default function SignIn() {
                 placeholder="Seu email"
               />
               {errors.email && <Text>{errors.email}</Text>}
-
-              
+ 
               <InputText
                 title="Senha"
                 ref={passwordInput}
@@ -65,24 +63,22 @@ export default function SignIn() {
               />
               {errors.password && <Text>{errors.password}</Text>}
 
-              <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Acessar</Text>
+              <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('SignUp')}>
+                <Text style={styles.registerText}>
+                  Não possui uma conta? Cadastre-se
+                </Text>
               </TouchableOpacity>
+ 
+              <Button
+                title="Entrar"
+                type='neutral'
+                onPress={handleSubmit}
+              />
             </>
           )}
         </Formik>
-
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.registerText}>
-            Não possui uma conta? Cadastre-se
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
       </Animatable.View>
     </View>
   );
