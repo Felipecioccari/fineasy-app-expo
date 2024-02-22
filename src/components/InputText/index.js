@@ -1,19 +1,14 @@
-import react from 'react';
+import React, { forwardRef } from 'react';
 import {Text, TextInput, StyleSheet, Alert,} from 'react-native';
 
 
-const InputText = (props) => {
-  return (
-    <TextInput
+const InputText = forwardRef((props, ref) => {
+  return <TextInput
       style={styles.input}
-      value={props.value}
-      onChangeText= {props.onChangeText}
-      placeholder= {props.placeholder}
-      keyboardType= {props.keyboardType}
-      secureTextEntry= {props.secureTextEntry}
+      ref={ref}
+      {...props}
     />
-  );
-  }
+  });
 
   const styles = StyleSheet.create({
     input: {
