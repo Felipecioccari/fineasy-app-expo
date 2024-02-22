@@ -1,47 +1,24 @@
-import React, {useContext, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-
-import {AuthContext} from '../../context/auth';
-
+import React, { useContext, useRef } from 'react';
+import { View, Text, TouchableOpacity, Alert, StyleSheet} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import * as Animatable from 'react-native';
-
+import { AuthContext } from '../../context/auth';
 import InputText from '../../components/InputText';
 import Button from '../../components/Button';
 
+// Define validation schema
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Email invalido!').required('Obrigatório!'),
+  password: Yup.string().required('Obrigatório!'),
+});
+
+
 export default function SignIn() {
-  
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-
-  const {handleLogin} = useContext(AuthContext);
-
+  const { handleLogin } = useContext(AuthContext);
   const navigation = useNavigation();
-
-  function validateEmail(email){
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}(\.br)?$/;
-    return regex.test(email);
-  };
-
-  function handleSubmit() {
-    if (email && password){
-      if (validateEmail(email)) {
-        handleLogin(email, password);
-      } else {
-        Alert.alert('Por favor digite um email valido');
-      }
-    }
-    else {
-      Alert.alert('Preencha todos os campos corretamente!');
-    }
-  }
+  const passwordInput = useRef();
 
   return (
     <View style={styles.container}>
@@ -53,22 +30,47 @@ export default function SignIn() {
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <InputText
-          title="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          placeholder="Seu email"
-        />
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            handleLogin(values.email, values.password);
+          }}
+        >
+          {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+            <>
+              <InputText
+                title="Email"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordInput.current.focus()}
+                blurOnSubmit={false}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+                keyboardType="email-address"
+                placeholder="Seu email"
+              />
+              {errors.email && <Text>{errors.email}</Text>}
 
-        <InputText
-          title="Senha"
-          placeholder="Sua senha"
-          style={styles.input}
-          value={password}
-          secureTextEntry={true}
-          onChangeText={setPassword}
-        />
+              
+              <InputText
+                title="Senha"
+                ref={passwordInput}
+                returnKeyType="done"
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+                placeholder="Sua senha"
+                secureTextEntry
+              />
+              {errors.password && <Text>{errors.password}</Text>}
+
+              <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Acessar</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </Formik>
 
         <TouchableOpacity
           style={styles.buttonRegister}
@@ -77,13 +79,10 @@ export default function SignIn() {
             Não possui uma conta? Cadastre-se
           </Text>
         </TouchableOpacity>
-        
-        <Button 
-          onPress={handleSubmit} 
-          type = {'neutral'}
-          title={'Entrar'}
-        />
-        
+
+        <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Acessar</Text>
+        </TouchableOpacity>
       </Animatable.View>
     </View>
   );
@@ -127,8 +126,3 @@ const styles = StyleSheet.create({
     color: '#A855A0',
   },
 });
-
-
-  
-
-  
