@@ -2,11 +2,10 @@ import {StyleSheet} from 'react-native';
 
 const checkedInCardStyles = StyleSheet.create({
   container: {
+    width: '92%',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -17,20 +16,26 @@ const checkedInCardStyles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 18,
+    color: '#41454A',
+    fontSize: 24,
+    alignSelf: 'center',
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#007AFF',
+    borderBottomColor: '#41454A',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
   },
   count: {
-    fontSize: 16,
+    fontSize: 48,
+    alignSelf: 'center',
     marginBottom: 5,
-    color: '#007AFF',
+    color: '#41454A',
   },
   subtitle: {
     fontSize: 16,
+    alignSelf: 'center',
     marginBottom: 5,
-    color: '#007AFF',
+    color: '#41454A',
   },
   button: {
     backgroundColor: '#007AFF',

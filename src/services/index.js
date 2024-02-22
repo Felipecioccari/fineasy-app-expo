@@ -8,12 +8,8 @@ const registerUser = async (name, email, password, squad) => {
     confirmPassword: password,
     squad,
   };
-  try {
     const response = await api.post('/signup/', data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+    return response;
 };
 
 const loginUser = async (email, password) => {

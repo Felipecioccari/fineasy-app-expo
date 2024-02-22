@@ -1,31 +1,28 @@
-import React, {useContext, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {AuthContext} from '../../context/auth';
-import api from '../../services/index';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import React, { useContext, useRef } from 'react';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, Alert, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import * as Animatable from 'react-native';
+import { AuthContext } from '../../context/auth';
+import InputText from '../../components/InputText';
+
+// Define validation schema
+const validationSchema = Yup.object().shape({
+  name: Yup.string().matches(/(.+\s.+)/, "Por favor, digite seu nome completo.").required('Obrigatório!'),
+  email: Yup.string().email('Email Invalido').required('Obrigatório!'),
+  password: Yup.string().required('Obrigatório!'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Senhas precisam ser iguais!').required('Obrigatório!'),
+  squad: Yup.string().required('Obrigatório!'),
+});
 
 export default function () {
-  const navigation = useNavigation();
-  const {handleSignUp} = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirm] = useState('');
-  const [squad, setSquad] = useState('');
-  const [name, setName] = useState('');
-
-  function handleSubmit() {
-    handleSignUp(name, email, password, confirmPassword, squad);
-  }
+  const { handleSignUp } = useContext(AuthContext);
+  const emailInput = useRef();
+  const passwordInput = useRef();
+  const confirmPasswordInput = useRef();
+  const squadInput = useRef();
+  const nameInput = useRef();
 
   return (
     <View style={styles.container}>
@@ -39,50 +36,105 @@ export default function () {
           <Text style={styles.message}>Bem vindo!</Text>
         </Animatable.View>
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-          <KeyboardAvoidingView>
-            <Text style={styles.title}>Nome</Text>
-            <TextInput
-              placeholder="Digite um name"
-              style={styles.input}
-              value={name}
-              onChangeText={setName}
-            />
-            <Text style={styles.title}>Email</Text>
-            <TextInput
-              placeholder="Digite um email"
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-            />
-            <Text style={styles.title}>Senha</Text>
-            <TextInput
-              placeholder="Sua senha"
-              style={styles.input}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <Text style={styles.title}>Confirme sua senha</Text>
-            <TextInput
-              placeholder="Sua senha"
-              style={styles.input}
-              value={confirmPassword}
-              onChangeText={setConfirm}
-              secureTextEntry
-            />
-            <Text style={styles.title}>Squad</Text>
-            <TextInput
-              placeholder="Digite um Squad"
-              style={styles.input}
-              value={squad}
-              onChangeText={setSquad}
-            />
-          </KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <Formik
+              initialValues={{ name: '', email: '', password: '', confirmPassword: '', squad: '' }}
+              validationSchema={validationSchema}
+              onSubmit={async (values, { setFieldError }) => {
+                try {
+                  await handleSignUp(values.name, values.email, values.password, values.confirmPassword, values.squad);
+                  // Navigate to the next screen or show a success message
+                } catch (error) {
+                  console.error('Error:', error);
+                  console.log('Erro singup', error.response.data.message)
+                  if (error.message && error.response.data && error.response.data.message) {
+                    // If the error is that the email already exists, set field error
+                    if (error.response.data.message === 'Este email já está em uso') {
+                      setFieldError('email', 'Este email já está em uso!');
+                    } else {
+                      // For other errors, show an alert
+                      Alert.alert('Error', error.response.data.message);
+                    }
+                  } else {
+                    Alert.alert('Error', 'Tivemos um problema ao criar sua conta! Por favor, tente novamente mais tarde.');
+                  }
+                }
+              }}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+                <>
+                  <Text style={styles.title}>Nome</Text>
+                  <InputText
+                    returnKeyType="next"
+                    onSubmitEditing={() => emailInput.current.focus()}
+                    blurOnSubmit={false}
+                    onChangeText={handleChange('name')}
+                    onBlur={handleBlur('name')}
+                    value={values.name}
+                    placeholder="Digite seu nome"
+                  />
+                  {errors.name && <Text>{errors.name}</Text>}
 
-          <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Criar</Text>
-          </TouchableOpacity>
+                  <Text style={styles.title}>Email</Text>
+                  <InputText
+                    ref={emailInput}
+                    returnKeyType="next"
+                    onSubmitEditing={() => passwordInput.current.focus()}
+                    blurOnSubmit={false}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                    keyboardType="email-address"
+                    placeholder="Digite seu email"
+                  />
+                  {errors.email && <Text>{errors.email}</Text>}
+
+                  <Text style={styles.title}>Senha</Text>
+                  <InputText
+                    ref={passwordInput}
+                    returnKeyType="next"
+                    onSubmitEditing={() => confirmPasswordInput.current.focus()}
+                    blurOnSubmit={false}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                    placeholder="Digite sua senha"
+                    secureTextEntry
+                  />
+                  {errors.password && <Text>{errors.password}</Text>}
+
+                  <Text style={styles.title}>Confirme sua senha</Text>
+                  <InputText
+                    ref={confirmPasswordInput}
+                    returnKeyType="next"
+                    onSubmitEditing={() => squadInput.current.focus()}
+                    blurOnSubmit={false}
+                    onChangeText={handleChange('confirmPassword')}
+                    onBlur={handleBlur('confirmPassword')}
+                    value={values.confirmPassword}
+                    placeholder="Confime sua senha"
+                    secureTextEntry
+                  />
+                  {errors.confirmPassword && <Text>{errors.confirmPassword}</Text>}
+
+                  <Text style={styles.title}>Squad</Text>
+                  <InputText
+                    ref={squadInput}
+                    returnKeyType="done"
+                    onChangeText={handleChange('squad')}
+                    onBlur={handleBlur('squad')}
+                    value={values.squad}
+                    placeholder="Digite seu Squad"
+                  />
+                  {errors.squad && <Text>{errors.squad}</Text>}
+
+                  <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Criar</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </Formik>
+          </KeyboardAvoidingView>
         </Animatable.View>
       </Animatable.ScrollView>
     </View>
@@ -116,13 +168,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginTop: 28,
-    color: 'black',
-  },
-  input: {
-    borderBottomWidth: 1,
-    height: 40,
-    marginBottom: 12,
-    fontSize: 16,
     color: 'black',
   },
   buttonText: {

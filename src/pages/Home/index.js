@@ -11,10 +11,11 @@ import {
 import CheckedInCard from '../../components/CheckedInCard';
 import api from '../../services/index';
 import {AuthContext} from '../../context/auth';
+import Profile from '../../components/Profile';
 
 export default function Home() {
   const {user, handleLogout} = useContext(AuthContext);
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [isCheckedIn, setIsCheckedIn] = useState(user.checkedIn);
   const [isLoading, setIsLoading] = useState(true);
 
   const usarName=user.name
@@ -40,19 +41,16 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Settings</Text>
+          <TouchableOpacity style={styles.headerButtons}>
+            <Image style={styles.headerButtonContent} source={require('../../assets/iconNavBar.png')} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleLogout}>
-            <Text style={styles.buttonText}>Logout</Text>
+          <TouchableOpacity style={styles.headerButtons} onPress={handleLogout}>
+            <Image style={styles.headerButtonContent} source={require('../../assets/iconLogOut.png')} />
           </TouchableOpacity>
         </View>
         <View style={styles.profile}>
           <TouchableOpacity style={styles.profilePicture}>
-            <Image
-              source={require('../../assets/profile.png')}
-              style={styles.profileImage}
-            />
+            <Profile />
           </TouchableOpacity>
         </View>
         <View style={styles.containerMenu}>
@@ -62,8 +60,8 @@ export default function Home() {
           </View>
           <View style={styles.menuItems}>
             <TouchableOpacity
-              style={[styles.checkInButton, styles.centerButton]}>
-              <View style={styles.checkInButton}>
+              style={[styles.checkedConteiner]}>
+              <View style={[styles.checkedContent]}>
                 <CheckedInCard />
               </View>
             </TouchableOpacity>
@@ -75,7 +73,7 @@ export default function Home() {
               ]}
               onPress={handleCheckIn}
               disabled={isCheckedIn}>
-              <Text style={styles.checkInButtonText}>Check-in</Text>
+              <Text style={styles.checkInButtonText}>CHECK</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -85,7 +83,7 @@ export default function Home() {
               ]}
               onPress={handleCheckOut}
               disabled={!isCheckedIn}>
-              <Text style={styles.checkOutButtonText}>Check-out</Text>
+              <Text style={styles.checkOutButtonText}>CHECK-OUT</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -97,8 +95,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#A4B548',
-    opacity: 0.9,
+    backgroundColor: '#47A054',
   },
   header: {
     flexDirection: 'row',
@@ -106,39 +103,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     paddingTop: 40,
-    backgroundColor: '#A4B548',
-    opacity: 0.9,
+    backgroundColor: '#FFF',
   },
-  button: {
-    backgroundColor: '#51C1C5',
-    padding: 8,
+  headerButtons: {
     borderRadius: 10,
+    height: 40,
+    width: 40,
   },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 16,
+  headerButtonContent: {
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
   profile: {
     alignItems: 'center',
-    marginTop: -60,
-    marginBottom: 16,
+    bottom: -20,
+    zIndex: 1,
   },
   profilePicture: {
     alignItems: 'center',
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 4,
-    borderColor: '#FFF',
   },
   containerMenu: {
     flex: 1,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    padding: 16,
+    paddingBottom: 90,
+    paddingVertical: 20,
+    height: '100%',
   },
   profileInfo: {
     alignItems: 'center',
@@ -147,36 +138,56 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 16,
     marginBottom: 8,
-    color: '#000000',
+    color: '#41454A',
   },
   squad: {
     fontSize: 16,
     marginBottom: 16,
-    color: '#000000',
+    color: '#41454A',
   },
+
+  checkedConteiner: {
+    alignSelf: 'center',
+    marginBottom: '20%',
+    width: '100%',
+    padding: 0,
+  },
+
+  checkedContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   checkInButton: {
+    height: 52,
+    width: 218,
     backgroundColor: '#A4B548',
     paddingVertical: 16,
     paddingHorizontal: 32,
-    borderRadius: 10,
+    borderRadius: 50,
     marginBottom: 16,
+    alignItems: 'center',
   },
   checkInButtonText: {
     color: '#FFF',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   checkOutButton: {
-    backgroundColor: '#ed574a',
-    borderWidth: 1,
-    borderColor: '#333',
+    height: 52,
+    width: 218,
+    backgroundColor: '#A4B548',
+    borderRadius: 50,
     paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 10,
+    alignItems: 'center',
+    color: '#FFF',
   },
   checkOutButtonText: {
-    color: '#333',
+    color: '#FFF',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   menuItems: {
     marginTop: 16,
@@ -185,7 +196,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   disabledButton: {
-    opacity: 0.5,
-    backgroundColor: '#ccc',
+    color: '#FFF',
+    backgroundColor: '#41454A',
   },
 });
