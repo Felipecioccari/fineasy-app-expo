@@ -35,17 +35,16 @@ const CheckinDetails = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: '2%',
   },
   userContainer: {
     borderBottomWidth: 1,
-    borderEndColor: '#fff',
     paddingLeft: '8%',
     paddingVertical: 5,
-    width: '105%',
+    width: '100%',
     alignSelf: 'center',
-    
+    backgroundColor: '#FFF',
+    margin: '2%'
   },
   userName: {
     fontSize: 22,

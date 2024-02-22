@@ -14,6 +14,7 @@ import {AuthContext} from '../../context/auth';
 import * as Animatable from 'react-native';
 
 import InputText from '../../components/InputText';
+import Button from '../../components/Button';
 
 export default function SignIn() {
   
@@ -52,16 +53,16 @@ export default function SignIn() {
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <Text style={styles.title}>Email</Text>
         <InputText
+          title="Email"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
           placeholder="Seu email"
         />
 
-        <Text style={styles.title}>Senha</Text>
         <InputText
+          title="Senha"
           placeholder="Sua senha"
           style={styles.input}
           value={password}
@@ -76,10 +77,13 @@ export default function SignIn() {
             Não possui uma conta? Cadastre-se
           </Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
+        
+        <Button 
+          onPress={handleSubmit} 
+          type = {'neutral'}
+          title={'Entrar'}
+        />
+        
       </Animatable.View>
     </View>
   );
@@ -113,37 +117,12 @@ const styles = StyleSheet.create({
     marginTop: 28,
     color: 'black',
   },
-  
-  button: {
-    backgroundColor: '#A855A0',
-    width: '100%',
-    borderRadius: 4,
-    paddingVertical: 8,
-    marginTop: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
   buttonRegister: {
     marginTop: 14,
     alignSelf: 'center',
   },
-  buttonLogin: {
-    position: 'absolute',
-    backgroundColor: '#A855A0',
-    borderRadius: 50,
-    paddingVertical: 8,
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 52,
-    width: 218,
-  },
+  
   registerText: {
     color: '#A855A0',
   },

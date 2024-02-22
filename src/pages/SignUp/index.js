@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as Animatable from 'react-native';
 import InputText from '../../components/InputText';
+import Button from '../../components/Button';
 
 export default function () {
   const navigation = useNavigation();
@@ -54,49 +55,53 @@ export default function () {
         </Animatable.View>
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <KeyboardAvoidingView>
-            <Text style={styles.title}>Nome</Text>
+            
             <InputText
-              placeholder="Digite um name"
+              title="Nome"
+              placeholder="Digite o seu nome"
               style={styles.input}
               value={name}
               onChangeText={setName}
             />
-            <Text style={styles.title}>Email</Text>
             <InputText
+              title="Email"
               placeholder="Digite um email"
               style={styles.input}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
             />
-            <Text style={styles.title}>Senha</Text>
+            
             <InputText
-              placeholder="Sua senha"
+            title="Senha"
+              placeholder="Digite uma senha"
               style={styles.input}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
             />
-            <Text style={styles.title}>Confirme sua senha</Text>
             <InputText
-              placeholder="Sua senha"
+              title="Confirmar Senha"
+              placeholder="Repita a senha "
               style={styles.input}
               value={confirmPassword}
               onChangeText={setConfirm}
               secureTextEntry
             />
-            <Text style={styles.title}>Squad</Text>
             <InputText
-              placeholder="Digite um Squad"
+              title="Time"
+              placeholder="Digite o seu time"
               style={styles.input}
               value={squad}
               onChangeText={setSquad}
             />
           </KeyboardAvoidingView>
 
-          <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Criar</Text>
-          </TouchableOpacity>
+          <Button
+            title="Criar"
+            type="positive"
+            onPress={handleSubmit}
+          />
         </Animatable.View>
       </Animatable.ScrollView>
     </View>
@@ -125,28 +130,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingStart: '5%',
     paddingEnd: '5%',
-    minHeight: '100%',
+    paddingBottom: '25%',
   },
-  title: {
-    fontSize: 20,
-    marginTop: 28,
-    color: 'black',
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  buttonLogin: {
-    backgroundColor: '#A4B548',
-    borderRadius: 50,
-    paddingVertical: 16,
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '15%',
-  },
+  
+  
+  
   registerText: {
     color: 'black',
   },

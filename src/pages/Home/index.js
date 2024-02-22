@@ -8,10 +8,11 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import CheckedInCard from '../../components/CheckedInCard';
 import api from '../../services/index';
 import {AuthContext} from '../../context/auth';
+import CheckedInCard from '../../components/CheckedInCard';
 import Profile from '../../components/Profile';
+import Button from '../../components/Button';
 
 export default function Home() {
   const {user, handleLogout} = useContext(AuthContext);
@@ -62,29 +63,14 @@ export default function Home() {
             <TouchableOpacity
               style={[styles.checkedConteiner]}>
               <View style={[styles.checkedContent]}>
-                <CheckedInCard />
+                <CheckedInCard/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.checkInButton,
-                styles.centerButton,
-                isCheckedIn ? styles.disabledButton : null,
-              ]}
-              onPress={handleCheckIn}
-              disabled={isCheckedIn}>
-              <Text style={styles.checkInButtonText}>CHECK</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.checkOutButton,
-                styles.centerButton,
-                !isCheckedIn ? styles.disabledButton : null,
-              ]}
-              onPress={handleCheckOut}
-              disabled={!isCheckedIn}>
-              <Text style={styles.checkOutButtonText}>CHECK-OUT</Text>
-            </TouchableOpacity>
+            <Button
+              title={isCheckedIn ? 'CHECK-OUT' : 'CHECK-IN'}
+              type= {isCheckedIn ? 'negative' : 'positive'}
+              onPress={isCheckedIn ? handleCheckOut : handleCheckIn}
+            />
           </View>
         </View>
       </ScrollView>
@@ -127,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    paddingBottom: 90,
+    paddingBottom: '28%',
     paddingVertical: 20,
     height: '100%',
   },
@@ -150,7 +136,7 @@ const styles = StyleSheet.create({
 
   checkedConteiner: {
     alignSelf: 'center',
-    marginBottom: '20%',
+    marginBottom: '15%',
     width: '100%',
     padding: 0,
   },
@@ -160,43 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  checkInButton: {
-    height: 52,
-    width: 218,
-    backgroundColor: '#A4B548',
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 50,
-    marginBottom: 16,
-    alignItems: 'center',
-  },
-  checkInButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  checkOutButton: {
-    height: 52,
-    width: 218,
-    backgroundColor: '#A4B548',
-    borderRadius: 50,
-    paddingVertical: 16,
-    alignItems: 'center',
-    color: '#FFF',
-  },
-  checkOutButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   menuItems: {
     marginTop: 16,
-  },
-  centerButton: {
-    alignSelf: 'center',
-  },
-  disabledButton: {
-    color: '#FFF',
-    backgroundColor: '#41454A',
   },
 });

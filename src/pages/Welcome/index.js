@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Button from '../../components/Button';
 
 export default function Welcome() {
   const navigation = useNavigation();
@@ -19,11 +20,11 @@ export default function Welcome() {
         <Text style={styles.title}>Fique em dia com o seu time Fineasy</Text>
         <Text style={styles.text}>Faça o login para começar</Text>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
+        <Button
+          title="Acessar"
+          type="neutral"
+          onPress={() => navigation.navigate('SignIn')}
+        />
       </View>
     </View>
   );
@@ -65,22 +66,5 @@ const styles = StyleSheet.create({
   text: {
     color: '#41454A',
   },
-  button: {
-    position: 'absolute',
-    backgroundColor: '#A855A0',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 52,
-    width: 218,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
+  
 });

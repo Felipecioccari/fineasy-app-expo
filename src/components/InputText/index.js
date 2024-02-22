@@ -1,19 +1,26 @@
-import react from 'react';
-import {Text, TextInput, StyleSheet, Alert,} from 'react-native';
+import react, { forwardRef } from 'react';
+import {Text, TextInput, StyleSheet, Alert, TouchableOpacity, View,} from 'react-native';
 
 
-const InputText = (props) => {
+const InputText = forwardRef((props, ref) => {
   return (
-    <TextInput
-      style={styles.input}
-      value={props.value}
-      onChangeText= {props.onChangeText}
-      placeholder= {props.placeholder}
-      keyboardType= {props.keyboardType}
-      secureTextEntry= {props.secureTextEntry}
-    />
+    <View>
+      <Text style={styles.title}>{props.title}</Text>
+      <TextInput
+        style={styles.input}
+        value={props.value}
+        onChangeText= {props.onChangeText}
+        placeholder= {props.placeholder}
+        keyboardType= {props.keyboardType}
+        secureTextEntry= {props.secureTextEntry}
+        ref={ref}
+        {...props}
+      />
+    </View>
+
+    
   );
-  }
+  });
 
   const styles = StyleSheet.create({
     input: {
@@ -21,6 +28,11 @@ const InputText = (props) => {
       height: 40,
       marginBottom: 12,
       fontSize: 16,
+      color: 'black',
+    },
+    title: {
+      fontSize: 20,
+      marginTop: 28,
       color: 'black',
     },
   });
